@@ -7,6 +7,8 @@
 #define SF_VERSION_PATCH    0
 #define SF_VERSION_REVISION 0
 
+// clang-format off
+
 // platform detection
 #if (defined(_WIN32) || defined(_WIN64))
 #    define SF_PLATFORM_WINDOWS
@@ -45,6 +47,8 @@
 #    define SF_EXTERN_C_BEGIN
 #    define SF_EXTERN_C_END
 #endif
+
+// clang-format on
 
 // utility macros
 #define SF_USED(x) (void)(x)

@@ -1,5 +1,7 @@
 #include "sysfonts/sysfonts.h"
 
+#ifdef SF_PLATFORM_LINUX
+
 #include <fontconfig/fontconfig.h>
 
 int SF_EnumFonts(SF_FontsEnumCallback callback)
@@ -50,3 +52,5 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
 
     return 0;
 }
+
+#endif

@@ -15,4 +15,3 @@ BraceWrapping:
   BeforeWhile: false
 InsertBraces: true
 BreakTemplateDeclarations: Yes
-IndentPPDirectives: AfterHash
