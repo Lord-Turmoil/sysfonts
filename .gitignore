@@ -1,6 +1,10 @@
+# system files
+.DS_Store
+
+# IDE files
 .vs/
 .vscode/
 
-.DS_Store
-
+# build files
+out/
 build/

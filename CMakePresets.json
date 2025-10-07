@@ -1,0 +1,186 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "windows-base",
+            "description": "Target Windows with the Visual Studio development environment.",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cl.exe",
+                "CMAKE_CXX_COMPILER": "cl.exe"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Windows"
+            }
+        },
+        {
+            "name": "windows-debug-shared",
+            "displayName": "Debug (Shared)",
+            "description": "Debug build for Windows with shared libraries.",
+            "inherits": "windows-base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "windows-debug-static",
+            "displayName": "Debug (Static)",
+            "description": "Debug build for Windows with static libraries.",
+            "inherits": "windows-debug-shared",
+            "cacheVariables": {
+                "SF_USE_SHARED": "OFF"
+            }
+        },
+        {
+            "name": "windows-release-shared",
+            "displayName": "Release (Shared)",
+            "description": "Release build for Windows with shared libraries.",
+            "inherits": "windows-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "SF_PUBLISH": "ON"
+            }
+        },
+        {
+            "name": "windows-release-static",
+            "displayName": "Release (Static)",
+            "description": "Release build for Windows with static libraries.",
+            "inherits": "windows-release-shared",
+            "cacheVariables": {
+                "SF_USE_SHARED": "OFF"
+            }
+        },
+        {
+            "name": "linux-base",
+            "description": "Target Linux with GNU Compiler",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+        },
+        {
+            "name": "linux-debug-shared",
+            "displayName": "Debug (Shared)",
+            "description": "Debug build for Linux with shared libraries.",
+            "inherits": "linux-base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "linux-debug-static",
+            "displayName": "Debug (Static)",
+            "description": "Debug build for Linux with static libraries.",
+            "inherits": "linux-debug-shared",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "SF_USE_SHARED": "OFF"
+            }
+        },
+        {
+            "name": "linux-release-shared",
+            "displayName": "Release (Shared)",
+            "description": "Release build for Linux with shared libraries.",
+            "inherits": "linux-base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "linux-release-static",
+            "displayName": "Release (Static)",
+            "description": "Release build for Linux with static libraries.",
+            "inherits": "linux-release-shared",
+            "cacheVariables": {
+                "SF_USE_SHARED": "OFF"
+            }
+        },
+        {
+            "name": "macos-base",
+            "description": "Target macOS with Apple clang.",
+            "hidden": true,
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "installDir": "${sourceDir}/install/${presetName}",
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "cc",
+                "CMAKE_CXX_COMPILER": "c++"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Darwin"
+            }
+        },
+        {
+            "name": "macos-debug-shared",
+            "displayName": "Debug (Shared)",
+            "description": "Debug build for macOS with shared libraries.",
+            "inherits": "macos-base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "macos-debug-static",
+            "displayName": "Debug (Static)",
+            "description": "Debug build for macOS with static libraries.",
+            "inherits": "macos-debug-shared",
+            "cacheVariables": {
+                "SF_USE_SHARED": "OFF"
+            }
+        },
+        {
+            "name": "macos-release-shared",
+            "displayName": "Release (Shared)",
+            "description": "Release build for macOS with shared libraries.",
+            "inherits": "macos-base",
+            "architecture": {
+                "value": "x64",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        },
+        {
+            "name": "macos-release-static",
+            "displayName": "Release (Static)",
+            "description": "Release build for macOS with static libraries.",
+            "inherits": "macos-release-shared",
+            "cacheVariables": {
+                "SF_USE_SHARED": "OFF"
+            }
+        }
+    ]
+}
