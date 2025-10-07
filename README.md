@@ -16,9 +16,15 @@ The goal of sysfonts is to list all installed system fonts with
 - font style
 - path to the font file
 
+Although it works as long as there is font installed, it is intended to be used by programs with graphical interface. On Linux, it requires `libfontconfig` installed.
+
+```bash
+sudo apt install -y libfontconfig1-dev
+```
+
 ## Usage
 
-This is a standard CMake project, simply copy it to your project and add the following command.
+This is a standard CMake project, simply copy it to your project and add the following command to your project.
 
 ```cmake
 target_link_libraries(sysfonts_test PRIVATE sysfonts::sysfonts)
