@@ -8,6 +8,8 @@
 >
 > This is a side project of [DungineX](https://github.com/Lord-Turmoil/DungineX), which needs to know all available system fonts.
 
+[![Windows Build](https://github.com/Lord-Turmoil/sysfonts/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Lord-Turmoil/sysfonts/actions/workflows/build.yml)
+
 The goal of sysfonts is to list all installed system fonts with 
 
 - font name
@@ -66,15 +68,13 @@ You can find this example in [test/main.c](./test/main.c).
 
 - [x] Windows
 - [x] Linux
-- [ ] MacOS
+- [x] MacOS
 
-The behavior of sysfonts on three platforms may vary.
+### Note for Windows
 
-### Windows
+It works as expected on Linux and MacOS, but fonts on windows is a little messy.
 
-Fonts on windows is a little messy. In order to be light-weighted, sysfonts only reads the registry, which does not contain precise font name and style. The `style` in `FontInfo` is always an empty string, and `family` may contain text from font style.
-
-Although one can try to parse the registry entry name to get font family and style, but it may not apply to all cases. Therefore sysfonts leaves it as it is.
+In order to be light-weighted, sysfonts only reads the registry, which does not contain precise font name and style. The `style` in `FontInfo` is **always an empty string**, and `family` may contain text from font style. Although one can try to parse the registry entry name to get font family and style, but it may not apply to all cases. Therefore sysfonts leaves it as it is.
 
 However, the path to the font file is always accurate, so one solution is to actually load the file to get the font family and style information.
 
