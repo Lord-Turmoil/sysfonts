@@ -21,13 +21,21 @@ if(NOT DEFINED SF_MASTER_PROJECT)
         set(SF_MASTER_PROJECT OFF)
     endif()
 endif()
+message(STATUS "SF_MASTER_PROJECT: ${SF_MASTER_PROJECT}")
 
 option(SF_BUILD_TEST "Build test" ${SF_MASTER_PROJECT})
 option(SF_STRICT_WARNINGS "Enable strict compiler warnings" ${SF_MASTER_PROJECT})
 
-option(SF_USE_SHARED "Use shared library of libsysfonts" OFF)
-option(SF_BUILD_SHARED "Build static library" ${SF_USE_SHARED})
-option(SF_BUILD_STATIC "Build static library" ON)
+option(SF_BUILD_SHARED "Build shared library" OFF)
+
+if(SF_MASTER_PROJECT)
+    # FIXME:
+    # If using Visual Studio as the generator, the output directories will have an
+    # additional configuration subdirectory (e.g., Debug, Release, etc.).
+    set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/lib")
+    set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/lib")
+    set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/output/bin")
+endif()
 
 # --------------------------------------------------------------------
 # Targets
@@ -35,7 +43,42 @@ option(SF_BUILD_STATIC "Build static library" ON)
 
 set(CMAKE_C_STANDARD 11)
 
-add_subdirectory(sysfonts)
+set(target_name sysfonts)
+set(binary_name sysfonts)
+
+file(GLOB_RECURSE SF_SOURCES CONFIGURE_DEPENDS 
+    "${PROJECT_SOURCE_DIR}/include/*.h"
+    "${PROJECT_SOURCE_DIR}/src/*.h"
+    "${PROJECT_SOURCE_DIR}/src/*.c"
+)
+
+if(SF_BUILD_SHARED)
+    add_library(${target_name} SHARED ${SF_SOURCES})
+
+    target_compile_definitions(${target_name} PRIVATE SF_EXPORT)
+    target_compile_definitions(${target_name} INTERFACE SF_IMPORT)
+    
+    set_target_properties(${target_name} PROPERTIES OUTPUT_NAME ${binary_name})
+    set_target_properties(${target_name} PROPERTIES POSITION_INDEPENDENT_CODE ON)
+else()
+    add_library(${target_name} STATIC ${SF_SOURCES})
+endif()
+
+target_include_directories(
+    ${target_name}
+    PUBLIC ${CMAKE_CURRENT_LIST_DIR}/include
+    PRIVATE ${CMAKE_CURRENT_LIST_DIR}/src
+)
+
+if(SF_STRICT_WARNINGS)
+    sf_enable_warnings(${target_name})
+endif()
+
+if(LINUX)
+    target_link_libraries(${target_name} PRIVATE fontconfig)
+endif()
+
+add_library(sysfonts::sysfonts ALIAS ${target_name})
 
 if(SF_BUILD_TEST)
     add_subdirectory(test)

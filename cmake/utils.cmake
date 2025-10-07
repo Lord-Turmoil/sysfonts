@@ -22,9 +22,9 @@ function(sf_disable_warnings target_name)
     endif()
 endfunction()
 
-# Extract version information from sysfonts/include/sysfonts/SF_defines.h
+# Extract version information from SF_defines.h
 function(sf_extract_version)
-    file(READ "${CMAKE_CURRENT_LIST_DIR}/sysfonts/include/sysfonts/SF_defines.h" file_contents)
+    file(READ "${CMAKE_CURRENT_LIST_DIR}/include/sysfonts/SF_defines.h" file_contents)
     string(REGEX MATCH "SF_VERSION_MAJOR +([0-9]+)" _ "${file_contents}")
     if(NOT CMAKE_MATCH_COUNT EQUAL 1)
         message(FATAL_ERROR "Could not extract major version number")

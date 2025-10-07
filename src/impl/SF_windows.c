@@ -24,6 +24,7 @@ static int StartsWith(const char* str, const char* prefix)
             return 0;
         }
     }
+
     return 1;
 }
 
@@ -36,7 +37,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
 {
     if (!callback)
     {
-        return 0;
+        return SF_SUCCESS;
     }
 
     HKEY hKey;
@@ -44,7 +45,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
     if (RegOpenKeyExA(HKEY_LOCAL_MACHINE, SYSTEM_FONT_REGISTRY_KEY, 0, KEY_READ, &hKey) != ERROR_SUCCESS)
     {
         SF_SetError("Failed to open registry key.");
-        return 1;
+        return SF_REGISTRY_ERROR;
     }
 
     const DWORD PATH_PREFIX_SIZE = strlen(SYSTEM_FONT_PATH);
@@ -75,7 +76,16 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
             {
                 info.path = path_buffer;
             }
-            callback(&info);
+            char* p = strstr(info.family, "(");
+            if (p)
+            {
+                *(p - 1) = '\0'; // Remove the trailing space before '('
+            }
+
+            if (callback(&info) != SF_CONTINUE)
+            {
+                break;
+            }
         }
 
         index++;
@@ -86,13 +96,13 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
     }
     RegCloseKey(hKey);
 
-    if (status != ERROR_NO_MORE_ITEMS)
+    if ((status != ERROR_SUCCESS) && (status != ERROR_NO_MORE_ITEMS))
     {
         SF_SetError("Failed to enumerate registry values.");
-        return 1;
+        return SF_REGISTRY_ERROR;
     }
 
-    return 0;
+    return SF_SUCCESS;
 }
 
 #endif

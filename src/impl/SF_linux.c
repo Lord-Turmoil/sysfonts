@@ -8,13 +8,13 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
 {
     if (!callback)
     {
-        return 0;
+        return SF_SUCCESS;
     }
 
     if (!FcInit())
     {
         SF_SetError("Failed to initialize Font Config.");
-        return 1;
+        return SF_FONT_CONFIG_ERROR;
     }
 
     FcPattern* pattern = FcPatternCreate();
@@ -39,7 +39,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
         info.family = (const char*)family;
         info.style = (const char*)style;
         info.path = (const char*)path;
-        if (callback(&info))
+        if (callback(&info) != SF_CONTINUE)
         {
             break;
         }
@@ -50,7 +50,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
     FcPatternDestroy(pattern);
     FcFini();
 
-    return 0;
+    return SF_SUCCESS;
 }
 
 #endif

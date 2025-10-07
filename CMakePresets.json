@@ -28,7 +28,8 @@
                 "strategy": "external"
             },
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "SF_BUILD_SHARED": "ON"
             }
         },
         {
@@ -37,7 +38,7 @@
             "description": "Debug build for Windows with static libraries.",
             "inherits": "windows-debug-shared",
             "cacheVariables": {
-                "SF_USE_SHARED": "OFF"
+                "SF_BUILD_SHARED": "OFF"
             }
         },
         {
@@ -47,7 +48,7 @@
             "inherits": "windows-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
-                "SF_PUBLISH": "ON"
+                "SF_BUILD_SHARED": "ON"
             }
         },
         {
@@ -56,7 +57,7 @@
             "description": "Release build for Windows with static libraries.",
             "inherits": "windows-release-shared",
             "cacheVariables": {
-                "SF_USE_SHARED": "OFF"
+                "SF_BUILD_SHARED": "OFF"
             }
         },
         {
@@ -86,7 +87,8 @@
                 "strategy": "external"
             },
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "SF_BUILD_SHARED": "ON"
             }
         },
         {
@@ -95,8 +97,7 @@
             "description": "Debug build for Linux with static libraries.",
             "inherits": "linux-debug-shared",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "SF_USE_SHARED": "OFF"
+                "SF_BUILD_SHARED": "OFF"
             }
         },
         {
@@ -109,7 +110,8 @@
                 "strategy": "external"
             },
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "SF_BUILD_SHARED": "ON"
             }
         },
         {
@@ -118,7 +120,7 @@
             "description": "Release build for Linux with static libraries.",
             "inherits": "linux-release-shared",
             "cacheVariables": {
-                "SF_USE_SHARED": "OFF"
+                "SF_BUILD_SHARED": "OFF"
             }
         },
         {
@@ -148,7 +150,8 @@
                 "strategy": "external"
             },
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "SF_BUILD_SHARED": "ON"
             }
         },
         {
@@ -157,7 +160,7 @@
             "description": "Debug build for macOS with static libraries.",
             "inherits": "macos-debug-shared",
             "cacheVariables": {
-                "SF_USE_SHARED": "OFF"
+                "SF_BUILD_SHARED": "OFF"
             }
         },
         {
@@ -170,7 +173,8 @@
                 "strategy": "external"
             },
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "SF_BUILD_SHARED": "ON"
             }
         },
         {
@@ -179,7 +183,7 @@
             "description": "Release build for macOS with static libraries.",
             "inherits": "macos-release-shared",
             "cacheVariables": {
-                "SF_USE_SHARED": "OFF"
+                "SF_BUILD_SHARED": "OFF"
             }
         }
     ]
