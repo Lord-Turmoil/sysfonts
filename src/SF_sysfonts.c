@@ -13,7 +13,7 @@ void SF_SetError(const char* format, ...)
     va_end(args);
 }
 
-const char* SF_GetError()
+const char* SF_GetError(void)
 {
     return sErrorBuffer;
 }

@@ -77,6 +77,9 @@ endif()
 if(LINUX)
     target_link_libraries(${target_name} PRIVATE fontconfig)
 endif()
+if (APPLE)
+    target_link_libraries(${target_name} PRIVATE "-framework CoreText" "-framework CoreFoundation")
+endif()
 
 add_library(sysfonts::sysfonts ALIAS ${target_name})
 

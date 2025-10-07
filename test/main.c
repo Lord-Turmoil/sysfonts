@@ -22,7 +22,7 @@ int main()
 {
     if (SF_EnumFonts(callback) != SF_SUCCESS)
     {
-        fprintf(stderr, SF_GetError());
+        fprintf(stderr, "%s", SF_GetError());
     }
 
     return 0;

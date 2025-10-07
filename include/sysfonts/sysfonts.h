@@ -31,6 +31,7 @@ SF_API int SF_EnumFonts(SF_FontsEnumCallback callback);
 #define SF_SUCCESS           0
 #define SF_REGISTRY_ERROR    1
 #define SF_FONT_CONFIG_ERROR 2
+#define SF_DESCRIPTOR_ERROR  3
 
 #define SF_CONTINUE 0
 #define SF_STOP     1
@@ -47,6 +48,6 @@ SF_API void SF_SetError(const char* format, ...);
  *
  * @return The last error message.
  */
-SF_API const char* SF_GetError();
+SF_API const char* SF_GetError(void);
 
 SF_EXTERN_C_END
