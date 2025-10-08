@@ -48,7 +48,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
         return SF_REGISTRY_ERROR;
     }
 
-    const DWORD PATH_PREFIX_SIZE = strlen(SYSTEM_FONT_PATH);
+    const size_t PATH_PREFIX_SIZE = strlen(SYSTEM_FONT_PATH);
 
     DWORD index = 0;
     CHAR valueName[512];
@@ -61,7 +61,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
 
     SF_FontInfo info;
 
-    LONG status = RegEnumValueA(hKey, index, valueName, &valueNameSize, NULL, &type, valueData, &valueDataSize);
+    LONG status = RegEnumValueA(hKey, index, valueName, &valueNameSize, NULL, &type, (LPBYTE)valueData, &valueDataSize);
     while (status == ERROR_SUCCESS)
     {
         if (type == REG_SZ)
@@ -92,7 +92,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
         valueNameSize = sizeof(valueName) / sizeof(CHAR);
         valueDataSize = sizeof(path_buffer) / sizeof(CHAR) - PATH_PREFIX_SIZE;
 
-        status = RegEnumValueA(hKey, index, valueName, &valueNameSize, NULL, &type, valueData, &valueDataSize);
+        status = RegEnumValueA(hKey, index, valueName, &valueNameSize, NULL, &type, (LPBYTE)valueData, &valueDataSize);
     }
     RegCloseKey(hKey);
 

@@ -22,19 +22,27 @@ typedef struct _SF_FontInfo
  * You must copy any data you need if you want to use it after the callback returns.
  *
  * @param font Pointer to SF_FontInfo structure containing font details.
- * @return Return 0 to continue enumeration, non-zero to stop.
+ * @return Return `SF_CONTINUE` to continue enumeration, `SF_STOP` to stop.
  */
 typedef int (*SF_FontsEnumCallback)(const SF_FontInfo* font);
 
+#define SF_CONTINUE 0
+#define SF_STOP     1
+
+/**
+ * @brief Enumerate all system fonts.
+ *
+ * This function calls the provided callback for each font found on the system.
+ *
+ * @param callback The callback function for each font, see `SF_FontsEnumCallback`.
+ * @return `SF_SUCCESS` on success, or an error code on failure.
+ */
 SF_API int SF_EnumFonts(SF_FontsEnumCallback callback);
 
 #define SF_SUCCESS           0
-#define SF_REGISTRY_ERROR    1
-#define SF_FONT_CONFIG_ERROR 2
-#define SF_DESCRIPTOR_ERROR  3
-
-#define SF_CONTINUE 0
-#define SF_STOP     1
+#define SF_REGISTRY_ERROR    1 // Windows registry error
+#define SF_FONT_CONFIG_ERROR 2 // Linux font config error
+#define SF_DESCRIPTOR_ERROR  3 // MacOS font descriptor error
 
 /**
  * @brief Set the last error message.
