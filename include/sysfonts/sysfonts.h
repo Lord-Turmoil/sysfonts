@@ -1,3 +1,25 @@
+/*
+  sysfonts - A cross-platform C library to list installed system fonts
+
+  Copyright (C) 2025 Tony Lewis <swift-phantom@outlook.com>
+
+  This software is provided 'as-is', without any express or implied
+  warranty. In no event will the authors be held liable for any damages
+  arising from the use of this software.
+
+  Permission is granted to anyone to use this software for any purpose,
+  including commercial applications, and to alter it and redistribute it
+  freely, subject to the following restrictions:
+
+  1. The origin of this software must not be misrepresented; you must not
+     claim that you wrote the original software. If you use this software
+     in a product, an acknowledgment in the product documentation would be
+     appreciated but is not required.
+  2. Altered source versions must be plainly marked as such, and must not be
+     misrepresented as being the original software.
+  3. This notice may not be removed or altered from any source distribution.
+ */
+
 #pragma once
 
 #include "sysfonts/SF_defines.h"
@@ -21,6 +43,11 @@ typedef struct _SF_FontInfo
  * The content of the FontInfo structure is only valid during the callback.
  * You must copy any data you need if you want to use it after the callback returns.
  *
+ * @note
+ * On Windows, the `style` field is always an empty string, as Windows registry does not
+ * contain style information. Also, the `family` may not be the precise font family name.
+ * You may need to parse it or load the font file to get accurate information.
+ *
  * @param font Pointer to SF_FontInfo structure containing font details.
  * @return Return `SF_CONTINUE` to continue enumeration, `SF_STOP` to stop.
  */
@@ -33,6 +60,7 @@ typedef int (*SF_FontsEnumCallback)(const SF_FontInfo* font);
  * @brief Enumerate all system fonts.
  *
  * This function calls the provided callback for each font found on the system.
+ * Use `SF_GetError()` to retrieve error messages if the function fails.
  *
  * @param callback The callback function for each font, see `SF_FontsEnumCallback`.
  * @return `SF_SUCCESS` on success, or an error code on failure.

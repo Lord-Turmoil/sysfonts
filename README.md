@@ -1,6 +1,6 @@
 # sysfonts
 
-> A simple cross-platform library to list all system fonts.
+> A lightweight cross-platform C library to list installed system fonts.
 
 ---
 
@@ -8,7 +8,7 @@
 >
 > This is a side project of [DungineX](https://github.com/Lord-Turmoil/DungineX), which needs to know all available system fonts.
 
-[![Windows Build](https://github.com/Lord-Turmoil/sysfonts/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Lord-Turmoil/sysfonts/actions/workflows/build.yml)
+[![Multi-platform Build](https://github.com/Lord-Turmoil/sysfonts/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Lord-Turmoil/sysfonts/actions/workflows/build.yml)
 
 The goal of sysfonts is to list all installed system fonts with 
 
@@ -27,10 +27,10 @@ sudo apt install -y libfontconfig1-dev
 This is a standard CMake project, simply copy it to your project and add the following command to your project.
 
 ```cmake
-target_link_libraries(sysfonts_test PRIVATE sysfonts::sysfonts)
+target_link_libraries(${YOUR_TARGET} PRIVATE sysfonts::sysfonts)
 ```
 
-sysfonts provides an API to iterate through all installed system fonts. All you need is to define a callback to handle each font.
+sysfonts provides an API to iterate through all installed system fonts. All you need is to define a callback to handle each font. The order of the fonts is not guaranteed.
 
 ```c
 #include <sysfonts/sysfonts.h>
@@ -83,4 +83,3 @@ It works as expected on Linux and MacOS, but fonts on windows is a little messy.
 In order to be light-weighted, sysfonts only reads the registry, which does not contain precise font name and style. The `style` in `FontInfo` is **always an empty string**, and `family` may contain text from font style. Although one can try to parse the registry entry name to get font family and style, but it may not apply to all cases. Therefore sysfonts leaves it as it is.
 
 However, the path to the font file is always accurate, so one solution is to actually load the file to get the font family and style information.
-
