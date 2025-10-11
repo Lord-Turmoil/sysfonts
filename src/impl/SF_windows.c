@@ -29,9 +29,6 @@
 #define SYSTEM_FONT_REGISTRY_KEY "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts"
 #define SYSTEM_FONT_PATH         "C:\\Windows\\Fonts\\"
 
-static char sFontface[256];
-static char sFontfile[1024];
-
 static int StartsWith(const char* str, const char* prefix)
 {
     if (!str || !prefix)
