@@ -26,7 +26,7 @@
 
 #include <fontconfig/fontconfig.h>
 
-int SF_EnumFonts(SF_FontsEnumCallback callback)
+int SF_EnumFonts(SF_FontsEnumCallback callback, void* context)
 {
     if (!callback)
     {
@@ -61,7 +61,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
         info.family = (const char*)family;
         info.style = (const char*)style;
         info.path = (const char*)path;
-        if (callback(&info) != SF_CONTINUE)
+        if (callback(&info, context) != SF_CONTINUE)
         {
             break;
         }

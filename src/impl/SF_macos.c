@@ -29,7 +29,7 @@
 
 #include <stdio.h>
 
-int SF_EnumFonts(SF_FontsEnumCallback callback)
+int SF_EnumFonts(SF_FontsEnumCallback callback, void* context)
 {
     if (!callback)
     {
@@ -101,7 +101,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
             info.style = style;
             info.path = path;
 
-            if (callback(&info) != SF_CONTINUE)
+            if (callback(&info, context) != SF_CONTINUE)
             {
                 finished = 1;
             }

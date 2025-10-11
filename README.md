@@ -38,7 +38,7 @@ sysfonts provides an API to iterate through all installed system fonts. All you 
 #include <stdio.h>
 #include <string.h>
 
-static int callback(const SF_FontInfo* info)
+static int callback(const SF_FontInfo* info, void* context)
 {
     printf("Font: %s\n", info->family);
     printf("  Style: %s\n", info->style);
@@ -55,7 +55,7 @@ static int callback(const SF_FontInfo* info)
 
 int main()
 {
-    if (SF_EnumFonts(callback) != SF_SUCCESS)
+    if (SF_EnumFonts(callback, NULL) != SF_SUCCESS)
     {
         fprintf(stderr, SF_GetError());
     }

@@ -55,7 +55,7 @@ static int StartsWith(const char* str, const char* prefix)
  * - https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regopenkeyexa
  * - https://learn.microsoft.com/en-us/windows/win32/api/winreg/nf-winreg-regenumvaluea
  */
-int SF_EnumFonts(SF_FontsEnumCallback callback)
+int SF_EnumFonts(SF_FontsEnumCallback callback, void* context)
 {
     if (!callback)
     {
@@ -104,7 +104,7 @@ int SF_EnumFonts(SF_FontsEnumCallback callback)
                 *(p - 1) = '\0'; // Remove the (True Type) suffix
             }
 
-            if (callback(&info) != SF_CONTINUE)
+            if (callback(&info, context) != SF_CONTINUE)
             {
                 break;
             }

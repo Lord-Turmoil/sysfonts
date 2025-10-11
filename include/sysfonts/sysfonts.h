@@ -48,10 +48,11 @@ typedef struct _SF_FontInfo
  * contain style information. Also, the `family` may not be the precise font family name.
  * You may need to parse it or load the font file to get accurate information.
  *
- * @param font Pointer to SF_FontInfo structure containing font details.
+ * @param font    Pointer to SF_FontInfo structure containing font details.
+ * @param context Custom user context passed to the enumeration function.
  * @return Return `SF_CONTINUE` to continue enumeration, `SF_STOP` to stop.
  */
-typedef int (*SF_FontsEnumCallback)(const SF_FontInfo* font);
+typedef int (*SF_FontsEnumCallback)(const SF_FontInfo* font, void* context);
 
 #define SF_CONTINUE 0
 #define SF_STOP     1
@@ -63,9 +64,10 @@ typedef int (*SF_FontsEnumCallback)(const SF_FontInfo* font);
  * Use `SF_GetError()` to retrieve error messages if the function fails.
  *
  * @param callback The callback function for each font, see `SF_FontsEnumCallback`.
+ * @param context  Custom user context passed to the callback.
  * @return `SF_SUCCESS` on success, or an error code on failure.
  */
-SF_API int SF_EnumFonts(SF_FontsEnumCallback callback);
+SF_API int SF_EnumFonts(SF_FontsEnumCallback callback, void* context);
 
 #define SF_SUCCESS           0
 #define SF_REGISTRY_ERROR    1 // Windows registry error
