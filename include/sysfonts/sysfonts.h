@@ -32,8 +32,8 @@ SF_EXTERN_C_BEGIN
 typedef struct _SF_FontInfo
 {
     const char* family; // font family name, e.g. "Arial"
-    const char* path;   // full path to the font file
     const char* style;  // font style, e.g. "Regular", "Bold Italic"
+    const char* path;   // full path to the font file
 } SF_FontInfo;
 
 /**

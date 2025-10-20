@@ -26,7 +26,7 @@
 
 #define SF_VERSION_MAJOR    0
 #define SF_VERSION_MINOR    1
-#define SF_VERSION_PATCH    0
+#define SF_VERSION_PATCH    1
 #define SF_VERSION_REVISION 0
 
 // clang-format off

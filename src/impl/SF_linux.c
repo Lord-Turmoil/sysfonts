@@ -40,15 +40,15 @@ int SF_EnumFonts(SF_FontsEnumCallback callback, void* context)
     }
 
     FcPattern* pattern = FcPatternCreate();
-    FcObjectSet* objects = FcObjectSetBuild(FC_FAMILY, FC_FILE, FC_STYLE, NULL);
+    FcObjectSet* objects = FcObjectSetBuild(FC_FAMILY, FC_STYLE, FC_FILE, NULL);
     FcFontSet* fonts = FcFontList(NULL, pattern, objects);
     for (int i = 0; i < fonts->nfont; i++)
     {
         FcPattern* font = fonts->fonts[i];
 
         FcChar8* family;
-        FcChar8* path;
         FcChar8* style;
+        FcChar8* path;
         if ((FcPatternGetString(font, FC_FAMILY, 0, &family) != FcResultMatch) ||
             (FcPatternGetString(font, FC_STYLE, 0, &style) != FcResultMatch) ||
             (FcPatternGetString(font, FC_FILE, 0, &path) != FcResultMatch))
