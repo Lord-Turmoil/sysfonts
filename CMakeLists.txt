@@ -14,6 +14,8 @@ sf_extract_version()
 project(sysfonts VERSION ${SF_VERSION})
 set(PROJECT_FULLNAME "system-fonts")
 
+message(STATUS "Building sysfonts ${SF_VERSION}")
+
 if(NOT DEFINED SF_MASTER_PROJECT)
     if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
         set(SF_MASTER_PROJECT ON)
@@ -21,9 +23,7 @@ if(NOT DEFINED SF_MASTER_PROJECT)
         set(SF_MASTER_PROJECT OFF)
     endif()
 endif()
-message(STATUS "SF_MASTER_PROJECT: ${SF_MASTER_PROJECT}")
 
-option(SF_BUILD_TEST "Build test" ${SF_MASTER_PROJECT})
 option(SF_STRICT_WARNINGS "Enable strict compiler warnings" ${SF_MASTER_PROJECT})
 
 option(SF_BUILD_SHARED "Build shared library" OFF)
